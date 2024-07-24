@@ -1,5 +1,5 @@
 import React from 'react';
-import {  FaPaintBrush, FaUser, FaUniversalAccess } from 'react-icons/fa';
+import { FaUser,FaSignOutAlt, FaUniversalAccess } from 'react-icons/fa';
 import './SideNav.css';
 
 function SideNav() {
@@ -10,14 +10,15 @@ function SideNav() {
           <FaUniversalAccess className="icon" />
           <a href="/services">Services</a>
         </li>
-        <li>
+        {/* <li>
           <FaPaintBrush className="icon" />
-          <a href="/hairstyles">Hairstyles</a>
-        </li>
+          <a href="/hairstyles">Settings</a>
+        </li> */}
         <li>
           <FaUser className="icon" />
-          <a href="/artisans">Artisans</a>
+          <a href="/profile">Profile</a>
         </li>
+        <li><FaSignOutAlt /> Logout</li>
       </ul>
     </div>
   );

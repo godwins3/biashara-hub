@@ -20,8 +20,8 @@ function Mainpage() {
 
   return (
     <div className="mainpage">
+      <br></br>
       <div className="hh">
-        <h1>Welcome Grace</h1>
         <p>Manage your service effectively </p>
         <div className="button-container">
           <button
