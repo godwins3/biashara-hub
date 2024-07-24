@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ProviderSignup.css';
-import logo from '../Assets/Logo.png';
-import leftImage from '../Assets/moving3.jpg';
+import logo from '../Assests/Logo.png';
+import leftImage from '../Assests/moving3.jpg';
 
 function Login() {
   const [email, setEmail] = useState('');

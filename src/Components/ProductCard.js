@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { DotMenu } from './ui/Icon';
-import { Text, Button } from './ui';
-import Loader from '@/components/ui/Loader';
+// import { Text, Button } from './ui';
+import Text from './ui/Text';
+import Button from './ui/Button';
+import Loader from './ui/Loader';
+import './ProductCard.css';
 
 const ProductCard = ({ 
     title, 
@@ -21,31 +23,28 @@ const ProductCard = ({
     };
 
     return (
-        <div className="flex flex-col gap-5 bg-cardLight rounded-md shadow-md p-5">
-            <div className="flex relative justify-end">
+        <div className="product-card">
+            <div className="menu-container">
                 <div className="group">
-                    <DotMenu className="text-secondary cursor-pointer" />
-                    <ul className="hidden hoverNavLink group-hover:flex flex-col absolute rounded-md shadow bg-cardLight right-0 z-10">
+                    <DotMenu className="dot-menu" />
+                    <ul className="menu-options">
                         <li>Add to Wishlist</li>
                     </ul>
                 </div>
             </div>
-            <div className="flex flex-col justify-center items-center">
-                <div className="flex relative justify-center items-center rounded-full h-40 w-80">
-                    <Image
-                        src={src}
-                        alt={title}
-                        layout="fill"
-                        className="object-cover rounded-md"
-                    />
-                </div>
-                <Text variant="price" className="mt-5">
-                    {title}
-                </Text>
-                <Text variant="infoXs">{date}</Text>
+            <div className="image-container">
+                <img src={src} alt={title} className="product-image" />
             </div>
-            <div className="flex items-center justify-between">
-                <Text variant="price">ksh. {price.toLocaleString()}</Text>
+            <Text variant="price" className="product-title">
+                {title}
+            </Text>
+            <Text variant="infoXs" className="product-date">
+                {date}
+            </Text>
+            <div className="product-footer">
+                <Text variant="price" className="product-price">
+                    ksh. {price.toLocaleString()}
+                </Text>
                 {loader ? (
                     <Loader />
                 ) : (

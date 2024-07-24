@@ -40,19 +40,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/profile" element={<Userprof/>} />
           <Route path="/admin" element={<Mainadmin/>} />
-
-
-          
-
-
-
-
-
-
-
-
-
-
         </Routes>
       </div>
     </Router>
