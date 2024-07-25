@@ -6,24 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../ui/Loader';
 import './ProductForm.css';
 
+
+
 const ProductForm = () => {
     const token = localStorage.getItem('authToken');
-    const [session, setSession] = useState(null); // Simulate session state
-    const [status, setStatus] = useState('unauthenticated');
-    const [licenseId, setLicenseId] = useState('');
 
-    // Simulated function to fetch the session data
-    const fetchSession = () => {
-        // Replace with actual logic to get the session
-        const mockSession = { user: { token: 'mock-token', licenseId: '' } }; // Mock session data
-        setSession(mockSession);
-        setStatus('authenticated');
-        setLicenseId(mockSession.user.licenseId);
-    };
 
-    useEffect(() => {
-        fetchSession();
-    }, []);
 
     const [loader, setLoader] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
@@ -39,9 +27,9 @@ const ProductForm = () => {
         },
         mode: 'onBlur',
     });
-
     const handleFileChange = (event) => {
         const file = event.target.files?.[0];
+        setImage(URL.createObjectURL(event.target.files[0]));
         console.log('File selected:', event.target.files);
         if (file) {
             const reader = new FileReader();
@@ -65,58 +53,58 @@ const ProductForm = () => {
     }; 
     
 
-    const becomeMerchant = useCallback(async () => {
-        if (status === 'authenticated' && session) {
-            const response = await fetch('http://localhost:5000/api/client/becomeMerchant', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `${token}`,
-                },
-                body: JSON.stringify({
-                    licenseId: 'test',
-                }),
-            });
+    // const becomeMerchant = useCallback(async () => {
+    //     if (status === 'authenticated' && session) {
+    //         const response = await fetch('http://localhost:5000/api/client/becomeMerchant', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: `${token}`,
+    //             },
+    //             body: JSON.stringify({
+    //                 licenseId: 'test',
+    //             }),
+    //         });
 
-            const result = await response.json();
-            if (result.status === 'success') {
-                toast.success('You are a merchant now');
-                if (result.licenseId) {
-                    setLicenseId(result.licenseId);
-                    // Update session or state if necessary
-                }
-                return true; // Indicate success
-            } else {
-                toast.error(result.message || 'Unknown error occurred');
-                return false; // Indicate failure
-            }
-        }
-        return false; // Indicate failure
-    }, [status, session, token]);
+    //         const result = await response.json();
+    //         if (result.status === 'success') {
+    //             toast.success('You are a merchant now');
+    //             if (result.licenseId) {
+    //                 setLicenseId(result.licenseId);
+    //                 // Update session or state if necessary
+    //             }
+    //             return true; // Indicate success
+    //         } else {
+    //             toast.error(result.message || 'Unknown error occurred');
+    //             return false; // Indicate failure
+    //         }
+    //     }
+    //     return false; // Indicate failure
+    // }, [status, session, token]);
 
     const onSubmitReady = async (data) => {
         try{
             setLoader(true);
             console.log(data)
             // Prepare the form data
-            const formData = {
-                name: data.name,
-                category: data.category,
-                description: data.description,
-                price: parseFloat(data.price),
-                base64Image: image,
-            };
-            console.log('Base64 Image Data:', image);
+                const formData = {
+                    name: data.name,
+                    category: data.category,
+                    description: data.description,
+                    price: parseFloat(data.price),
+                    image: image,
+                };
+                console.log('Base64 Image Data:', image);
 
-            // Submit the product form
-            const response = await fetch('http://localhost:5000/api/merchant/addProduct/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `${token}`,
-                },
-                body: JSON.stringify(formData),
-            });
+                // Submit the product form
+                const response = await fetch('http://localhost:5000/api/merchant/addProduct/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `${token}`,
+                    },
+                    body: JSON.stringify(formData),
+                });
 
             const result = await response.json();
             console.log(result)
@@ -134,24 +122,26 @@ const ProductForm = () => {
         }
     };
 
-    const handleFormSubmission = async (data) => {
-        try {
-            const merchantSuccess = await becomeMerchant();
-            if (merchantSuccess) {
-                await onSubmitReady(data);
-            } else {
-                await onSubmitReady(data);
-            }
-        } catch (error) {
-            toast.error('Error during form submission');
-                console.error(error);
-        }
+    
+
+    // const handleFormSubmission = async (data) => {
+    //     try {
+    //         const merchantSuccess = await becomeMerchant();
+    //         if (merchantSuccess) {
+    //             await onSubmitReady(data);
+    //         } else {
+    //             await onSubmitReady(data);
+    //         }
+    //     } catch (error) {
+    //         toast.error('Error during form submission');
+    //             console.error(error);
+    //     }
         
-    };
+    // };
 
     return (
         <div className="form-container">
-            <form onSubmit={handleSubmit(handleFormSubmission)} className="form">
+            <form onSubmit={handleSubmit(onSubmitReady)} className="form">
                 <input
                     type="text"
                     placeholder="Name"
@@ -188,13 +178,12 @@ const ProductForm = () => {
                 />
                 {errors.price && <span className="error-message">{errors.price.message}</span>}
 
-                <input
-                    type="file"
-                    className="input"
-                    onChange={handleFileChange}
-                    {...register('image', { required: 'Image is required' })}
-                />
-                {errors.image && <span className="error-message">{errors.image.message}</span>}
+                <div className="App">
+                    <h2>Add Image:</h2>
+                    <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+                    {/* <img src={file} /> */}
+                </div>
+                {/* {errors.image && <span className="error-message">{errors.image.message}</span>} */}
 
                 {previewImage && (
                     <img
