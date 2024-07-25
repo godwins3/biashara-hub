@@ -4,6 +4,7 @@ import LoginNav from '../Dashboard/LoginNav';
 import profile from "../Assests/prof.png";
 
 function Userprof() {
+  const username = localStorage.getItem('username')
   return (
     <div>
       <LoginNav />
@@ -11,7 +12,7 @@ function Userprof() {
         <div className="left-column">
           <img src={profile} alt="Profile" className="profile-image" />
           <div className="profile-details">
-            <h2>John Doe</h2>
+            <h2>{username}</h2>
             <p>Update and manage your account</p>
           </div>
           <div className="profile-actions">
@@ -24,15 +25,14 @@ function Userprof() {
             <p>Delete Account</p>
           </div>
         </div>
-        <div className="right-column">
+        {/* <div className="right-column">
           <label>Add Description</label>
           <textarea placeholder="Description" rows="5"></textarea>
-          <label>Upload Work History Images</label>
           <input type="file" />
           <label>Add Skills or Additional Information</label>
           <input type="text" placeholder="Add Skills or Additional Information" />
           
-        </div>
+        </div> */}
       </div>
     </div>
   );

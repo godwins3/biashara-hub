@@ -9,6 +9,7 @@ function Mainadmin() {
      <SideNav/>
         <div className="main-content">
             <TopA/>
+            <br></br>
             <Mainpage/>
         </div>
     </div>

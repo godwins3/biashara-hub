@@ -25,18 +25,11 @@ function Mainpage() {
         <p>Manage your service effectively </p>
         <div className="button-container">
           <button
-            className={button1Clicked ? 'active' : ''}
-            style={{ backgroundColor: button1Clicked ? '#E2725B' : 'transparent', color: button1Clicked ? 'white' : '#E2725B', border: `1px solid #E2725B` }}
-            onClick={() => handleButtonClick(1)}
-          >
-            View Analytics
-          </button>
-          <button
             className={button2Clicked ? 'active' : ''}
             style={{ backgroundColor: button2Clicked ? '#E2725B' : 'transparent', color: button2Clicked ? 'white' : '#E2725B', border: `1px solid #E2725B` }}
             onClick={() => handleButtonClick(2)}
           >
-            Create Service
+            <a href='/dashboard/addproduct'>Create Service</a>
           </button>
         </div>
 

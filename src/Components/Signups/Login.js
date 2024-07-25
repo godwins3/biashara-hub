@@ -9,7 +9,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const [genericError, setGenericError] = useState('');
   const navigate = useNavigate();
 
@@ -18,26 +18,22 @@ function Login() {
   };
 
   const onButtonClick = async (event) => {
-    event.preventDefault(); // Prevent the default form submission
-    // Reset any previous error messages
+    event.preventDefault();
     setEmailError('');
     setPasswordError('');
     setGenericError('');
 
-    // Validate email
     if (!email.trim()) {
       setEmailError('Email is required');
       return;
     }
 
-    // Validate password
     if (!password.trim()) {
       setPasswordError('Password is required');
       return;
     }
 
     try {
-      // Make HTTP POST request to the login API endpoint
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
@@ -46,22 +42,21 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
-      // Parse response
       const data = await response.json();
-
-      // Handle successful login
+      console.log(data)
       if (response.ok) {
-        // Redirect the user to the dashboard or home page upon successful login
+        // Store token in localStorage
+        localStorage.setItem('authToken', data.token); // Assuming token is returned as 'token'
+        localStorage.setItem('username', data.name);
+        localStorage.setItem('email', data.email);
+        
+        // Redirect to the homepage or dashboard
         navigate('/');
       } else {
-        // Handle login failure
-        // For now, display error message received from the server
-        setGenericError(data.message);
+        setGenericError(data.message || 'Login failed');
       }
     } catch (error) {
-      // Handle network errors or other exceptions
       console.error('Error occurred during login:', error);
-      // Display a generic error message to the user
       setGenericError('An error occurred during login. Please try again.');
     }
   };

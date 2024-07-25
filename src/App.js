@@ -17,6 +17,7 @@ import Book from './Components/Categories/Book';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Userprof from './Components/Categories/Userprof';
 import Mainadmin from './Components/AdminDashboard/Mainadmin';
+import ProductForm from './Components/AdminDashboard/ProductForm';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/dashboard" element={<Mainadmin/>} />
           <Route path="/profile" element={<Userprof/>} />
           <Route path="/admin" element={<Dashboard/>} />
+          <Route path="/dashboard/addproduct" element={<ProductForm/>} />
         </Routes>
       </div>
     </Router>

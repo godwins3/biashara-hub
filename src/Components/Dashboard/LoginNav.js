@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
-import { faSearch, faBell, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBars } from '@fortawesome/free-solid-svg-icons';
 import './LoginNav.css';
 import logo from "../Assests/Logo.png";
 
@@ -11,6 +11,7 @@ function LoginNav() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const username = localStorage.getItem('username')
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -46,10 +47,6 @@ function LoginNav() {
           <img src={logo} alt="Jiachilie Logo" className="logo-image" />
         </div>
       </Link>
-        <input type="text" placeholder="What do you need help with?" className="search-input" />
-        <button className="search-button">
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
       </div>
       <div className="right-section">
         <div className="notification">
@@ -57,7 +54,7 @@ function LoginNav() {
           <span className="notification-text">3</span>
         </div>
         <div className="user-profile" ref={dropdownRef}>
-          <span className="user-greeting" onClick={handleProfileClick}>Hi Nancy</span>
+          <span className="user-greeting" onClick={handleProfileClick}>Hi {username}</span>
           <FontAwesomeIcon icon={faBars} className="hamburger-icon" onClick={toggleDropdown} />
           {dropdownOpen && (
             <div className="dropdown-content">

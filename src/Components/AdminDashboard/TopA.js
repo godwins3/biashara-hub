@@ -12,10 +12,6 @@ function TopA() {
         <span className="dashboard-text">Admin Dashboard</span>
       </div>
       <div className="right-section">
-        <div className="search-container">
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          <input type="text" placeholder="Search..." className="search-input" />
-        </div>
       </div>
     </div>
   );
