@@ -3,22 +3,20 @@ import Text from './ui/Text';
 import Button from './ui/Button';
 import Loader from './ui/Loader';
 import './ProductCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ 
     title, 
-    productId, 
     src, 
-    addToCart, 
     date, 
     price 
 }) => {
-    const [loader, setLoader] = useState(false);
+    const [loader] = useState(false);
 
-    const handleAddToCart = async () => {
-        setLoader(true);
-        await addToCart(productId);
-        setLoader(false);
-    };
+    const navigate = useNavigate();
+    const handler = () => {
+        navigate('/dashboard');
+    }
 
     return (
         <div className="product-card">
@@ -41,8 +39,8 @@ const ProductCard = ({
                 ) : (
                     <Button
                         variant="outline"
-                        onClick={handleAddToCart}
-                        title="Add to Cart"
+                        onClick={handler}
+                        title="Book"
                     />
                 )}
             </div>
