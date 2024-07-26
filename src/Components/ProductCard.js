@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { DotMenu } from './ui/Icon';
 import Text from './ui/Text';
 import Button from './ui/Button';
 import Loader from './ui/Loader';
