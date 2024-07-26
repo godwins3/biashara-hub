@@ -1,84 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Mainpage.css';
-import fts from "../Assests/featservice.png"
-import cal from "../Assests/cal.png"
-
+import MyProduct from './MyProduct'; // Import the MyProduct component
 
 function Mainpage() {
-  const [button1Clicked, setButton1Clicked] = useState(false);
-  const [button2Clicked, setButton2Clicked] = useState(false);
-
-  const handleButtonClick = (buttonNumber) => {
-    if (buttonNumber === 1) {
-      setButton1Clicked(true);
-      setButton2Clicked(false);
-    } else if (buttonNumber === 2) {
-      setButton1Clicked(false);
-      setButton2Clicked(true);
-    }
-  };
-
   return (
     <div className="mainpage">
-      <br></br>
       <div className="hh">
-        <p>Manage your service effectively </p>
+        <p>Manage your service effectively</p>
         <div className="button-container">
-          <button
-            className={button2Clicked ? 'active' : ''}
-            style={{ backgroundColor: button2Clicked ? '#E2725B' : 'transparent', color: button2Clicked ? 'white' : '#E2725B', border: `1px solid #E2725B` }}
-            onClick={() => handleButtonClick(2)}
-          >
+          <button>
             <a href='/dashboard/addproduct'>Create Service</a>
           </button>
         </div>
-
-        <div className="hhhh">
-        {/* Column 1 */}
-        <div className="column">
-          <p>Featured Services</p>
-
-          <button className="view-all-button">View All Services</button>
-        </div>
-
-        {/* Column 2 */}
-        <div className="column">
-          <img src={fts} alt="Service 1" />
-          <p>Service 1 Description</p>
-          <p>$50</p>
-        </div>
-
-        {/* Column 3 */}
-        <div className="column">
-          <img src={fts} alt="Service 2" />
-          <p>Service 2 Description</p>
-          <p>$80</p>
-        </div>
-      </div>
-
-      <div className='tt'>
-{/* Column 1 */}
-<div className="column">
-          <p>Featured requests</p>
-
-          <button className="view-all-button">View All Requests </button>
-        </div>
-
-        {/* Column 2 */}
-        <div className="column">
-          <img src={cal} alt="Service 1" />
-          <p>Service 1 Description</p>
-          <p>$50</p>
-        </div>
-
-        {/* Column 3 */}
-        <div className="column">
-          <img src={cal} alt="Service 2" />
-          <p>Service 2 Description</p>
-          <p>$80</p>
-        </div>
-
-      </div>
+        {/* Insert MyProduct Component Here */}
+        <MyProduct /> {/* This will render the product list below the existing content */}
       </div>
     </div>
   );

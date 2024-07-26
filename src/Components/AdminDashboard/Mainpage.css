@@ -1,23 +1,14 @@
 .mainpage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin-top: 20px;
-  }
-  
-  .hh {
-    text-align: center;
-    padding-top: -400px;
-  }
-  h1{
-    color: #603914;
-  }
-  p {
-    color: #603914;
-  }
-  .button-container {
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items from the top */
+  height: 100vh;
+  margin-top: 2px;
+}
+
+  .hh p {
+    margin-top: -20px; /* Adjust this value as needed */
+    font-size: 24px; /* Optional: Increase font size for emphasis */
   }
   
   button {
@@ -27,25 +18,6 @@
     cursor: pointer;
     font-size: 16px;
     transition: all 0.3s ease;
-  }
-  
-  button.active {
-    opacity: 0.7;
-  }
-
-
-  .hhhh {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    text-align: center;
-  }
-
-  .tt {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    text-align: center;
   }
   
   
@@ -68,19 +40,6 @@
     
     font-size: 20px;
     padding-bottom: 10px;
-  }
-  .view-all-button {
-    background-color: #E2725B;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .view-all-button:hover {
-    background-color: #C25741;
   }
   
   .column p {

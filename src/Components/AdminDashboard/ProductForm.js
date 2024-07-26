@@ -1,21 +1,15 @@
 'use client';
-import React, { useState, ChangeEvent, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../ui/Loader';
 import './ProductForm.css';
 
-
-
 const ProductForm = () => {
     const token = localStorage.getItem('authToken');
-
-
-
     const [loader, setLoader] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
-    const [image, setImage] = useState('');
     const navigate = useNavigate();
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         defaultValues: {
@@ -23,91 +17,46 @@ const ProductForm = () => {
             category: '',
             description: '',
             price: '',
-            image: null,
+            image: null
         },
         mode: 'onBlur',
     });
+
     const handleFileChange = (event) => {
         const file = event.target.files?.[0];
-        setImage(URL.createObjectURL(event.target.files[0]));
-        console.log('File selected:', event.target.files);
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                // Check if reader.result is not empty
-                if (reader.result) {
-                    setImage(reader.result); // Set base64 image data
-                    setPreviewImage(reader.result); // Set preview image URL
-                } else {
-                    console.error('Error reading file: no result');
-                }
+                setPreviewImage(reader.result); // Set preview image URL
             };
-            reader.onerror = (error) => {
-                console.error('Error reading file:', error);
-            };
-            reader.readAsDataURL(file); // Read file as data URL
+            reader.readAsDataURL(file);
         } else {
-            console.error('No file selected');
             setPreviewImage(null); // Clear preview if no file
         }
     }; 
-    
-
-    // const becomeMerchant = useCallback(async () => {
-    //     if (status === 'authenticated' && session) {
-    //         const response = await fetch('http://localhost:5000/api/client/becomeMerchant', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 Authorization: `${token}`,
-    //             },
-    //             body: JSON.stringify({
-    //                 licenseId: 'test',
-    //             }),
-    //         });
-
-    //         const result = await response.json();
-    //         if (result.status === 'success') {
-    //             toast.success('You are a merchant now');
-    //             if (result.licenseId) {
-    //                 setLicenseId(result.licenseId);
-    //                 // Update session or state if necessary
-    //             }
-    //             return true; // Indicate success
-    //         } else {
-    //             toast.error(result.message || 'Unknown error occurred');
-    //             return false; // Indicate failure
-    //         }
-    //     }
-    //     return false; // Indicate failure
-    // }, [status, session, token]);
 
     const onSubmitReady = async (data) => {
-        try{
+        try {
             setLoader(true);
-            console.log(data)
-            // Prepare the form data
-                const formData = {
-                    name: data.name,
-                    category: data.category,
-                    description: data.description,
-                    price: parseFloat(data.price),
-                    image: image,
-                };
-                console.log('Base64 Image Data:', image);
+            const formData = {
+                name: data.name,
+                category: data.category,
+                description: data.description,
+                price: parseFloat(data.price),
+                // Assuming you want the image data as base64 for submission
+                base64Image: previewImage 
+            };
 
-                // Submit the product form
-                const response = await fetch('http://localhost:5000/api/merchant/addProduct/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `${token}`,
-                    },
-                    body: JSON.stringify(formData),
-                });
+            const response = await fetch('http://localhost:5000/api/merchant/addProduct/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`,
+                },
+                body: JSON.stringify(formData),
+            });
 
             const result = await response.json();
-            console.log(result)
             setLoader(false);
             if (result.status === 'failed') {
                 toast.error('Failed to create product');
@@ -118,26 +67,11 @@ const ProductForm = () => {
                 navigate('/dashboard');
             }
         } catch (error) {
-            console.log(error)
+            setLoader(false);
+            console.error(error);
+            toast.error('An error occurred while submitting the form.');
         }
     };
-
-    
-
-    // const handleFormSubmission = async (data) => {
-    //     try {
-    //         const merchantSuccess = await becomeMerchant();
-    //         if (merchantSuccess) {
-    //             await onSubmitReady(data);
-    //         } else {
-    //             await onSubmitReady(data);
-    //         }
-    //     } catch (error) {
-    //         toast.error('Error during form submission');
-    //             console.error(error);
-    //     }
-        
-    // };
 
     return (
         <div className="form-container">
@@ -180,11 +114,8 @@ const ProductForm = () => {
 
                 <div className="App">
                     <h2>Add Image:</h2>
-                    <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-                    {/* <img src={file} /> */}
+                    <input type="file" accept="image/*" onChange={handleFileChange} />
                 </div>
-                {/* {errors.image && <span className="error-message">{errors.image.message}</span>} */}
-
                 {previewImage && (
                     <img
                         className="preview-image"

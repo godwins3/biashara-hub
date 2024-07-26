@@ -23,14 +23,7 @@ const ProductCard = ({
 
     return (
         <div className="product-card">
-            <div className="menu-container">
-                <div className="group">
-                    <DotMenu className="dot-menu" />
-                    <ul className="menu-options">
-                        <li>Add to Wishlist</li>
-                    </ul>
-                </div>
-            </div>
+            
             <div className="image-container">
                 <img src={src} alt={title} className="product-image" />
             </div>

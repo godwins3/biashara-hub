@@ -5,7 +5,7 @@
     align-items: center;
     
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;  /* Ensures the navbar stays on top */
+    /* position: fixed;  Ensures the navbar stays on top */
     top: 0;
     width: 100%;
     z-index: 1000;  /* Ensures it is above other elements */
