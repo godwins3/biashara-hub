@@ -7,14 +7,18 @@ const BecomeMerchant = () => {
     const [session, setSession] = useState(null); // Simulate session state
     const [status, setStatus] = useState('unauthenticated');
     const [licenseId, setLicenseId] = useState('');
+    const token = localStorage.getItem('authToken');
 
     // Simulated function to fetch the session data
     const fetchSession = () => {
         // Replace with actual logic to get the session
-        const mockSession = { user: { token: 'mock-token', licenseId: '' } }; // Mock session data
-        setSession(mockSession);
-        setStatus('authenticated');
-        setLicenseId(mockSession.user.licenseId);
+        if (token) {
+            const mockSession = { user: { token: token, licenseId: 'test' } }; // Mock session data
+            setSession(mockSession);
+            setStatus('authenticated');
+            setLicenseId(mockSession.user.licenseId);
+        }
+        
     };
 
     useEffect(() => {
@@ -27,7 +31,7 @@ const BecomeMerchant = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: session.user.token,
+                    Authorization: `${token}`,
                 },
                 body: JSON.stringify({
                     licenseId: 'test',

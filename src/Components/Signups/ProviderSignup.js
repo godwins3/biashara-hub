@@ -54,7 +54,7 @@ function ProviderSignup() {
       // Handle successful login
       if (response.ok) {
         // Redirect the user to the dashboard or home page upon successful login
-        navigate('/admin');
+        navigate('/dashboard');
       } else {
         // Handle login failure
         // For now, display error message received from the server

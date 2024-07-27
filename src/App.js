@@ -18,6 +18,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Userprof from './Components/Categories/Userprof';
 import Mainadmin from './Components/AdminDashboard/Mainadmin';
 import ProductForm from './Components/AdminDashboard/ProductForm';
+import PrivateRoute from './Components/PrivateRoute';
 
 function App() {
   return (
@@ -31,17 +32,20 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/Psignup" element={<ProviderSignup />} />
           <Route path="/Ssignup" element={<SeekerSignup />} />
-          <Route path="/fashionmore" element={<Fashioncat />} />
-          <Route path="/foodmore" element={<Foodcat />} />
-          <Route path="/appliancemore" element={<Appliancecat />} />
-          <Route path="/movingmore" element={<Movingcat />} />
-          <Route path="/help" element={<Help/>} />
-          <Route path="/details" element={<Details/>} />
-          <Route path="/book" element={<Book/>} />
-          <Route path="/dashboard" element={<Mainadmin/>} />
-          <Route path="/profile" element={<Userprof/>} />
-          <Route path="/admin" element={<Dashboard/>} />
-          <Route path="/dashboard/addproduct" element={<ProductForm/>} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/fashionmore" element={<Fashioncat />} />
+            <Route path="/foodmore" element={<Foodcat />} />
+            <Route path="/appliancemore" element={<Appliancecat />} />
+            <Route path="/movingmore" element={<Movingcat />} />
+            <Route path="/help" element={<Help/>} />
+            <Route path="/details" element={<Details/>} />
+            <Route path="/book" element={<Book/>} />
+            <Route path="/dashboard" element={<Mainadmin/>} />
+            <Route path="/profile" element={<Userprof/>} />
+            <Route path="/admin" element={<Dashboard/>} />
+            <Route path="/dashboard/addproduct" element={<ProductForm/>} />
+          </Route>
+          
         </Routes>
       </div>
     </Router>
