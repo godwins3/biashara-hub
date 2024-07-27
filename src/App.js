@@ -44,13 +44,22 @@ function App() {
             <Route path="/help" element={<Help/>} />
             <Route path="/details" element={<Details/>} />
             <Route path="/book" element={<Book/>} />
-            <Route path="/dashboard" element={<Mainadmin/>} />
             <Route path="/profile" element={<Userprof/>} />
-            <Route path='/resetpassword' element={<ResetPassword />} />
-            <Route path="/admin" element={<Dashboard/>} />
             <Route path="/dashboard/addproduct" element={<ProductForm/>} />
           </Route>
-          
+          <Route
+            path="/admin"
+            element={<PrivateRoute allowedRoles={['admin']} />}
+          >
+            <Route path="" element={<Dashboard />} />
+          </Route>
+          <Route
+            path="/dashboard"
+            element={<PrivateRoute allowedRoles={['provider']} />}
+          >
+            <Route path="" element={<Mainadmin />} />
+          </Route>
+          <Route path='/resetpassword' element={<ResetPassword />} />
         </Routes>
       </div>
     </Router>

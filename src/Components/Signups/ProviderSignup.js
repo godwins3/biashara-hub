@@ -46,7 +46,7 @@ function ProviderSignup() {
       setConfirmPasswordError('Passwords do not match')
       return;
     }
-
+    const role = 'provider'
     try {
       // Make HTTP POST request to the login API endpoint
       const response = await fetch('http://localhost:5000/api/auth/signup', {
@@ -54,7 +54,7 @@ function ProviderSignup() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, role }),
       });
 
       // Parse response

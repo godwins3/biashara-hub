@@ -49,6 +49,7 @@ function Login() {
         localStorage.setItem('authToken', data.token); // Assuming token is returned as 'token'
         localStorage.setItem('username', data.name);
         localStorage.setItem('email', data.email);
+        localStorage.setItem('role', data.role);
         
         // Redirect to the homepage or dashboard
         navigate('/');

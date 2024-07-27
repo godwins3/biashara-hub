@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ProviderSignup.css';
+import './AdminSignup.css';
 import logo from '../Assests/Logo.png';
 import leftImage from '../Assests/login.jpg';
 
 
-function SeekerSignup() {
+function AdminSignup() {
   const [email, setEmail] = useState('');
   const [username, setUserName ] = useState('');
   const [password, setPassword] = useState('');
@@ -46,7 +46,7 @@ function SeekerSignup() {
       setConfirmPasswordError('Passwords do not match')
       return;
     }
-    const role = 'seeker'
+    const role = 'admin'
     try {
       // Make HTTP POST request to the login API endpoint
       const response = await fetch('http://localhost:5000/api/auth/signup', {
@@ -148,4 +148,4 @@ function SeekerSignup() {
   )
 }
 
-export default SeekerSignup
+export default AdminSignup
