@@ -1,8 +1,9 @@
 import React from 'react'
 import './Profile.css';
+import ResetPassword from '../Signups/ResetPassword';
 function Profilecontent() {
   return (
-    <div>Profilecontent</div>
+    <ResetPassword />  
   )
 }
 

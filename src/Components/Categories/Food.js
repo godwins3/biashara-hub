@@ -43,7 +43,7 @@ const Food = () => {
   };
 
   const handleViewSeller = () => {
-    navigate('/details');
+    navigate('/book');
   };
 
   return (
@@ -62,7 +62,7 @@ const Food = () => {
             <h3 className="fashion-name">{item.name}</h3>
             <p className="fashion-text">{item.text}</p>
             <button className="view-details-button" onClick={() => handleViewDetails(item)}>
-              View Details
+              Book Service
             </button>
           </div>
         ))}

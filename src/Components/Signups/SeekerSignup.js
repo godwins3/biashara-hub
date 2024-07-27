@@ -9,10 +9,12 @@ function SeekerSignup() {
   const [email, setEmail] = useState('');
   const [username, setUserName ] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [genericError, setGenericError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -24,6 +26,7 @@ function SeekerSignup() {
     // Reset any previous error messages
     setEmailError('');
     setPasswordError('');
+    setConfirmPassword('');
     setGenericError('');
 
     // Validate email
@@ -35,6 +38,12 @@ function SeekerSignup() {
     // Validate password
     if (!password.trim()) {
       setPasswordError('Password is required');
+      return;
+    }
+
+    //confirm password
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match')
       return;
     }
 
@@ -114,8 +123,19 @@ function SeekerSignup() {
             </span>
           </div>
           <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" />
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="confirmPassword"
+              value={confirmPassword}
+              placeholder="Confirm your password"
+              onChange={(ev) => setConfirmPassword(ev.target.value)}
+              className="inputBox"
+            />
+            <label className="errorLabel">{passwordError}</label>
+            <span onClick={togglePasswordVisibility} className="togglePassword">
+              {showPassword ? 'Hide' : 'Show'}
+            </span>
+            {confirmPasswordError && <p style={{ color: 'red' }}>{confirmPasswordError}</p>}
           </div>
           <div className="terms-text">
             <p>By signing up, you agree to our Terms of Service and Privacy Policy.</p>

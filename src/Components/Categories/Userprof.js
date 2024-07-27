@@ -2,6 +2,7 @@ import React from 'react';
 import './UseProf.css';
 import LoginNav from '../Dashboard/LoginNav';
 import profile from "../Assests/prof.png";
+import ResetPassword from '../Signups/ResetPassword';
 
 function Userprof() {
   const username = localStorage.getItem('username')
@@ -16,15 +17,11 @@ function Userprof() {
             <p>Update and manage your account</p>
           </div>
           <div className="profile-actions">
-            <p>Edit Profile</p>
-            <p>Change Password</p>
-            <p>Change Availability Status</p>
-            <p>Change Location</p>
-            <p>Billing</p>
-            <p>Help</p>
-            <p>Delete Account</p>
+            <p><a href='/help'>Help</a></p>
+            
           </div>
         </div>
+        <ResetPassword />
         {/* <div className="right-column">
           <label>Add Description</label>
           <textarea placeholder="Description" rows="5"></textarea>

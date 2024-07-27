@@ -18,7 +18,11 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Userprof from './Components/Categories/Userprof';
 import Mainadmin from './Components/AdminDashboard/Mainadmin';
 import ProductForm from './Components/AdminDashboard/ProductForm';
+import ResetPassword from './Components/Signups/ResetPassword';
 import PrivateRoute from './Components/PrivateRoute';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css"; 
+
 
 function App() {
   return (
@@ -42,6 +46,7 @@ function App() {
             <Route path="/book" element={<Book/>} />
             <Route path="/dashboard" element={<Mainadmin/>} />
             <Route path="/profile" element={<Userprof/>} />
+            <Route path='/resetpassword' element={<ResetPassword />} />
             <Route path="/admin" element={<Dashboard/>} />
             <Route path="/dashboard/addproduct" element={<ProductForm/>} />
           </Route>

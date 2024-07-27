@@ -2,7 +2,7 @@ import React from 'react';
 import TopNavbar from './TopNavbar';
 import './Dashboard.css';
 import Sidebar from './Sidebar';
-import Profilecontent from './Profilecontent';
+import ResetPassword from '../Signups/ResetPassword';
 //import DashboardContent from './DashboardContent';
 
 function Dashboard() {
@@ -11,7 +11,7 @@ function Dashboard() {
       <Sidebar/>
       <div className="main-content">
         <TopNavbar />
-        <Profilecontent/>
+        <ResetPassword />
       </div>
     </div>
   );

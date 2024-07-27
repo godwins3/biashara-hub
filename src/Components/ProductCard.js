@@ -15,7 +15,7 @@ const ProductCard = ({
 
     const navigate = useNavigate();
     const handler = () => {
-        navigate('/dashboard');
+        navigate('/book');
     }
 
     return (

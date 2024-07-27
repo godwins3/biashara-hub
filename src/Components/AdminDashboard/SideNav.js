@@ -8,7 +8,7 @@ function SideNav() {
       <ul>
         <li>
           <FaUniversalAccess className="icon" />
-          <a href="/services">Services</a>
+          <a href="/categories">Services</a>
         </li>
         {/* <li>
           <FaPaintBrush className="icon" />

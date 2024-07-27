@@ -3,6 +3,7 @@ import Text from '../ui/Text';
 import Button from '../ui/Button';
 import './DashboardCard.css'; // Import the CSS file
 
+
 const DashboardCard = ({
     title,
     productId,
@@ -10,7 +11,9 @@ const DashboardCard = ({
     removeProducts,
     date,
     quantity = 100, // Add a quantity prop
+    
 }) => {
+
     return (
         <div className="dashboard-card">
             <div className="menu-container">
@@ -18,7 +21,6 @@ const DashboardCard = ({
                     <DotMenu className="dot-menu" />
                     <ul className="hidden hover-nav group-hover:flex">
                         <li>Edit</li>
-                        <li>Add to Wishlist</li>
                         <li
                             role="button"
                             aria-label={`Remove ${title}`}

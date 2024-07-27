@@ -57,7 +57,7 @@ const MyProduct = () => {
         });
         setProducts((prev) => prev.filter((list) => list._id !== productId));
     };
-
+    
 
     useEffect(() => {
         const getProducts = async () => {
@@ -75,12 +75,13 @@ const MyProduct = () => {
 
         // Check if the token exists before fetching products
         if (localStorage.getItem('authToken')) {
-
-            const merchantSuccess = becomeMerchant();
+            // eslint-disable-next-line
+            const merchantSuccess = becomeMerchant;
                 merchantSuccess();
                 getProducts();
         
         }
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -93,7 +94,7 @@ const MyProduct = () => {
                         src={product.imageUrl}
                         title={product.name}
                         date={dateFormat(product.createdAt)}
-                        removeProducts={removeProduct}
+                        removeProducts={removeProduct()}
                     />
                 ))
             ) : (

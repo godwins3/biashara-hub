@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa'; // Importing Font Awesome search icon
+import { toast } from 'react-hot-toast';
 import "./Home.css";
 import mission from "../Assests/Ms2.png";
 import appwork from "../Assests/Appwork.png";
-import fashionImage from "../Assests/artsan.png";
-import artisansImage from "../Assests/artsan.png";
-import foodImage from "../Assests/artsan.png";
-import cleaningImage from "../Assests/artsan.png";
 import testimonial from "../Assests/Testimonial.png"
+import testimonial1 from "../Assests/Testimonial.png"
+import testimonial2 from "../Assests/Testimonial.png"
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
+import CategoriesCarousel from './CategoryCarousel';
 
 
 function Home() {
+  const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate(); // Initialize navigate
+
+    const handleSearch = (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        const trimmedTerm = searchTerm.trim().toLowerCase(); // Normalize input
+
+        // Check against predefined categories
+        if (trimmedTerm === 'food') {
+            navigate('/foodmore');
+        } else if (trimmedTerm === 'fashion') {
+            navigate('/fashionmore');
+        } else if (trimmedTerm === 'appliance') {
+            navigate('/appliancemore');
+        } else if (trimmedTerm === 'moving') {
+            navigate('/movingmore');
+        } else {
+            // Show error message
+            toast.error('Search not found');
+        }
+    };
   return (
     <div>
        <Navigation/>
@@ -20,8 +43,18 @@ function Home() {
         <div className="hero-section">
         <div className="hero-content">
           <div className="search-container">
-            <input type="text" placeholder="What do you need help with?" className="search-input" />
-            <FaSearch className="search-icon" />
+              <form onSubmit={handleSearch}>
+                  <input
+                      type="text"
+                      placeholder="What do you need help with?"
+                      className="search-input"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)} // Update state on input change
+                  />
+                  <button type="submit" className="search-icon">
+                      <FaSearch />
+                  </button>
+              </form>
           </div>
           <div className="text-container">
             <h1 className="heading">"Discover Trusted Service Providers in Kenya"</h1>
@@ -54,9 +87,9 @@ function Home() {
         </div>
       </div>
     </div>
-
+    <CategoriesCarousel />
     {/* change to carousel */}
-    <div className="categories-section">
+    {/* <div className="categories-section">
       <h2 className="categories-heading">Categories</h2>
       <div className="categories-list">
         <div className="category-item">
@@ -77,7 +110,7 @@ function Home() {
         </div>
       </div>
     </div>
-
+ */}
 
     <div className="testimonials-section">
       <h2 className="testimonials-heading">Testimonials</h2>
@@ -89,12 +122,12 @@ function Home() {
 
         </div>
         <div className="testimonial-item">
-          <img src={testimonial} alt="Testimonial 2" className="testimonial-img" />
+          <img src={testimonial1} alt="Testimonial 2" className="testimonial-img" />
           <p className="testimonial-name">Emmanuel Bett</p>
           <p className="testimonial-text">"We are really impressed with the Real Estate value and paying method in Particular."</p>
         </div>
         <div className="testimonial-item">
-          <img src={testimonial} alt="Testimonial 3" className="testimonial-img" />
+          <img src={testimonial2} alt="Testimonial 3" className="testimonial-img" />
           <p className="testimonial-name">Faith Martins</p>
           <p className="testimonial-text">"We are really impressed with the Real Estate value and paying method in Particular."</p>
         </div>
