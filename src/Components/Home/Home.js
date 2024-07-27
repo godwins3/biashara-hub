@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa'; // Importing Font Awesome search icon
-import { toast } from 'react-hot-toast';
+import { toast, ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css';
 import "./Home.css";
 import mission from "../Assests/Ms2.png";
 import appwork from "../Assests/Appwork.png";
@@ -32,8 +33,14 @@ function Home() {
         } else if (trimmedTerm === 'moving') {
             navigate('/movingmore');
         } else {
-            // Show error message
-            toast.error('Search not found');
+            // Show error message as a pop-up
+            toast.error('Search not found', {
+              autoClose: 3000, // Duration for auto close
+              hideProgressBar: true, // Hide progress bar
+              closeOnClick: true, // Close on click
+              draggable: true, // Allow dragging to dismiss
+              pauseOnHover: true, // Pause on hover
+            });
         }
     };
   return (
@@ -55,6 +62,7 @@ function Home() {
                       <FaSearch />
                   </button>
               </form>
+              <ToastContainer /> {/* Add ToastContainer to your component tree */}
           </div>
           <div className="text-container">
             <h1 className="heading">"Discover Trusted Service Providers in Kenya"</h1>
