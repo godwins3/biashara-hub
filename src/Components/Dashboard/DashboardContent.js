@@ -13,26 +13,26 @@ function DashboardContent() {
   };
 
   const fetchUsers = async () => {
-      try {
-          const token = getAuthToken();
-          const response = await fetch('http://localhost:5000/api/admin/getUsers', {
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `${token}` // Add the authorization header
-              }
-          });
+    try {
+      const token = getAuthToken();
+      const response = await fetch('http://localhost:5000/api/admin/getUsers', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token}` // Add the authorization header
+        }
+      });
 
-          console.log(response);
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          const data = await response.json();
-          setUserCount(data);
-      } catch (error) {
-          console.error('Error fetching products:', error);
-          toast.error('Failed to fetch products');
+      console.log(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      const data = await response.json();
+      setUserCount(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      toast.error('Failed to fetch products');
+    }
   };
   const fetchMerchants = async () => {
     try {
