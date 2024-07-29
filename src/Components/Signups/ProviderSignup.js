@@ -106,10 +106,10 @@ function ProviderSignup() {
       setConfirmPasswordError('Passwords do not match')
       return;
     }
-    const role = 'seeker'
+    const role = 'provider'
     try {
       // Make HTTP POST request to the login API endpoint
-      const response = await fetch('http://localhost:5000/api/auth/signup', {
+      const response = await fetch('http://localhost:5000/api/auth/provider/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,9 +132,9 @@ function ProviderSignup() {
       }
     } catch (error) {
       // Handle network errors or other exceptions
-      console.error('Error occurred during login:', error);
+      console.error('Error occurred during signup:', error);
       // Display a generic error message to the user
-      setGenericError('An error occurred during login. Please try again.');
+      setGenericError('An error occurred during signup. Please try again.');
     }
   };
 

@@ -11,7 +11,15 @@ function LoginNav() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  const username = localStorage.getItem('username')
+  const [isProvider, setIsProvider] = useState(false);
+  const username = localStorage.getItem('username');
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken')
+    setIsLoggedIn(false)
+  }
+
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -35,6 +43,13 @@ function LoginNav() {
     };
   }, [dropdownOpen]);
 
+  useEffect(() => {
+    const role = localStorage.getItem('role')
+    if (role === 'provider') {
+      setIsProvider(true)
+    }
+  }, [])
+
   const handleProfileClick = () => {
     navigate('/profile');
   };
@@ -54,13 +69,24 @@ function LoginNav() {
           <FontAwesomeIcon icon={faBars} className="hamburger-icon" onClick={toggleDropdown} />
           {dropdownOpen && (
             <div className="dropdown-content">
-              <a href="/dashboard">My Dashboard</a>
-              <a href="/categories">Categories</a>
-              <a href="/profile">Settings</a>
-              <a href="/help">Help</a>
-              <a href="/login">Logout</a>
+              {isProvider ? (
+                <>
+                  <a href="/dashboard">My Dashboard</a>
+                  <a href="/categories">Categories</a>
+                  <a href="/profile">Settings</a>
+                  <a href="/help">Help</a>
+                  <a href="/login">Logout</a>
+                </>
+              ) : (
+                <>
+                  <a href="/categories">Categories</a>
+                  <a href="/profile">Settings</a>
+                  <a href="/help">Help</a>
+                  <a href="/login" onClick={handleLogout}>Logout</a>
+                </>
+              )}
             </div>
-          )}
+          )} 
         </div>
       </div>
     </div>

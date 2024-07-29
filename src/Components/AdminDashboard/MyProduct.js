@@ -9,42 +9,7 @@ import './MyProduct.css'; // Make sure to import your CSS file
 
 const MyProduct = () => {
     const [products, setProducts] = useState([]);
-    const [session, setSession] = useState(null); // Simulate session state
-    const [status, setStatus] = useState('unauthenticated');
-    const [licenseId, setLicenseId] = useState('');
-    const token = localStorage.getItem('authToken');
-
-        
-    const becomeMerchant = useCallback(async () => {
-        if (status === 'authenticated' && session) {
-            const response = await fetch('http://localhost:5000/api/client/becomeMerchant', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `${token}`,
-                },
-                body: JSON.stringify({
-                    licenseId: 'test',
-                }),
-            });
-
-            const result = await response.json();
-            if (result.status === 'success') {
-                toast.success('You are a merchant now');
-                if (result.licenseId) {
-                    setLicenseId(result.licenseId);
-                    // Update session or state if necessary
-                }
-                return true; // Indicate success
-            } else {
-                toast.error(result.message || 'Unknown error occurred');
-                return false; // Indicate failure
-            }
-        }
-        return false; // Indicate failure
-    }, [status, session, token]);
-
-
+    
     const removeProduct = async (productId) => {
         const token = localStorage.getItem('authToken');
         await fetch('http://localhost:5000/api/merchant/deleteProduct/', {
@@ -58,7 +23,6 @@ const MyProduct = () => {
         setProducts((prev) => prev.filter((list) => list._id !== productId));
     };
     
-
     useEffect(() => {
         const getProducts = async () => {
             const token = localStorage.getItem('authToken');
@@ -76,8 +40,6 @@ const MyProduct = () => {
         // Check if the token exists before fetching products
         if (localStorage.getItem('authToken')) {
             // eslint-disable-next-line
-            const merchantSuccess = becomeMerchant;
-                merchantSuccess();
                 getProducts();
         
         }

@@ -6,6 +6,10 @@ import './Navigation.css';
 const Navigation = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken')
+    setIsLoggedIn(false)
+  }
   useEffect(() => {
     // Check if the authToken exists in local storage
     const token = localStorage.getItem('authToken');
@@ -32,9 +36,14 @@ const Navigation = () => {
       </ul>
       <div className="nav-button-container">
         {isLoggedIn ? (
-          <Link to="/profile">
-            <button className="nav-button">Profile</button>
-          </Link>
+          <>
+            <Link to="/profile">
+              <button className="nav-button">Profile</button>
+            </Link>
+            <Link to="/login">
+              <button className="nav-button" onClick={handleLogout}>Logout</button>
+            </Link>
+          </>
         ) : (
           <>
             <Link to="/signup">
