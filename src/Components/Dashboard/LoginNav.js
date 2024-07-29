@@ -49,10 +49,6 @@ function LoginNav() {
       </Link>
       </div>
       <div className="right-section">
-        <div className="notification">
-          <FontAwesomeIcon icon={faBell} />
-          <span className="notification-text">3</span>
-        </div>
         <div className="user-profile" ref={dropdownRef}>
           <span className="user-greeting" onClick={handleProfileClick}>Hi {username}</span>
           <FontAwesomeIcon icon={faBars} className="hamburger-icon" onClick={toggleDropdown} />

@@ -63,7 +63,7 @@ function AdminSignup() {
       // Handle successful login
       if (response.ok) {
         // Redirect the user to the dashboard or home page upon successful login
-        navigate('/');
+        navigate('/login');
       } else {
         // Handle login failure
         // For now, display error message received from the server

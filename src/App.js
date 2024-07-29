@@ -7,6 +7,7 @@ import Mcategory from './Components/Categories/Mcategory';
 import Osignup from './Components/Signups/Osignup';
 import ProviderSignup from './Components/Signups/ProviderSignup';
 import SeekerSignup from './Components/Signups/SeekerSignup';
+import AdminSignup from './Components/Signups/AdminSignup'
 import Fashioncat from './Components/Categories/Fashioncat';
 import Foodcat from './Components/Categories/Foodcat';
 import Appliancecat from './Components/Categories/Appliancecat';
@@ -36,6 +37,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/Psignup" element={<ProviderSignup />} />
           <Route path="/Ssignup" element={<SeekerSignup />} />
+          <Route path='/Asignup' element={<AdminSignup/>} />
           <Route element={<PrivateRoute />}>
             <Route path="/fashionmore" element={<Fashioncat />} />
             <Route path="/foodmore" element={<Foodcat />} />
@@ -47,6 +49,7 @@ function App() {
             <Route path="/profile" element={<Userprof/>} />
             <Route path="/dashboard/addproduct" element={<ProductForm/>} />
           </Route>
+          <Route path='/admintest' element={<Dashboard />} />
           <Route
             path="/admin"
             element={<PrivateRoute allowedRoles={['admin']} />}

@@ -3,15 +3,24 @@ import LoginNav from './LoginNav';
 import './Help.css'; // Import your CSS file for styling
 import Heroimg from "../Assests/Helphero.png"
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
-
+import { toast, ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css';
 import { FaQuestionCircle, FaUserCog, FaCogs, FaHandsHelping, FaPhone, FaStar } from 'react-icons/fa';
 
 import Footer from '../Footer/Footer';
 
 function Help() {
+  const [activeIndex, setActiveIndex] = useState(null);
 
-
-    const [activeIndex, setActiveIndex] = useState(null);
+  const onContactClick = () => {
+    toast.info('Form submitted successfully', {
+      autoClose: 3000, // Duration for auto close
+      hideProgressBar: true, // Hide progress bar
+      closeOnClick: true, // Close on click
+      draggable: true, // Allow dragging to dismiss
+      pauseOnHover: true, // Pause on hover
+    });
+  }
 
   const faqItems = [
     {
@@ -92,6 +101,7 @@ function Help() {
       const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission here
+        onContactClick();
         setIsContactFormVisible(false);
       };
   return (
@@ -127,15 +137,11 @@ function Help() {
 
               <button type="submit">Submit</button>
             </form>
+            <ToastContainer /> {/* Add ToastContainer to your component tree */}
           </div>
         </div>
         )}
-    
-
-      <div className='Searchhelp'>
-        <h2>Search by category</h2>
-
-      </div>
+   
 
       <div className='help-cat'>
         {helpItems.map(item => (

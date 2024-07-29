@@ -7,27 +7,69 @@ import leftImage from '../Assests/login.jpg';
 
 function SeekerSignup() {
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [username, setUserName ] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [usernameError, setUserNameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [genericError, setGenericError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const navigate = useNavigate();
 
+  const [strength, setStrength] = useState('');
+
+  const validatePassword = (password) => {
+    const strengthCriteria = {
+      length: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      lowercase: /[a-z]/.test(password),
+      number: /[0-9]/.test(password),
+      specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    };
+
+    const strength = Object.values(strengthCriteria).reduce((acc, cur) => acc + cur, 0);
+
+    switch (strength) {
+      case 5:
+        return 'Strong';
+      case 4:
+        return 'Good';
+      case 3:
+        return 'Medium';
+      default:
+        return 'Weak';
+    }
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setStrength(validatePassword(newPassword));
+
+  }
 
   const onButtonClick = async (event) => {
     event.preventDefault(); // Prevent the default form submission
     // Reset any previous error messages
     setEmailError('');
     setPasswordError('');
-    setConfirmPassword('');
+    setConfirmPasswordError('');
     setGenericError('');
+    setPhoneError('');
+    setUserNameError('');
+    
+    // validate username
+    if (!username.trim()) {
+      setUserNameError('Name is required')
+    }
 
     // Validate email
     if (!email.trim()) {
@@ -35,11 +77,16 @@ function SeekerSignup() {
       return;
     }
 
+    // validate phone
+    if (!phone.trim()) {
+      setPhoneError('Phone Number is required')
+    }
     // Validate password
     if (!password.trim()) {
       setPasswordError('Password is required');
       return;
     }
+    
 
     //confirm password
     if (password !== confirmPassword) {
@@ -54,16 +101,17 @@ function SeekerSignup() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password, role }),
+        body: JSON.stringify({ username, email, phone, password, role }),
       });
 
       // Parse response
       const data = await response.json();
+      console.log(data)
 
       // Handle successful login
       if (response.ok) {
         // Redirect the user to the dashboard or home page upon successful login
-        navigate('/');
+        navigate('/login');
       } else {
         // Handle login failure
         // For now, display error message received from the server
@@ -96,7 +144,7 @@ function SeekerSignup() {
               onChange={(ev) => setUserName(ev.target.value)}
               className="inputBox"
             />
-            <label className="errorLabel">{emailError}</label>
+            <label className="errorLabel">{usernameError}</label>
           </div>
             <input
               type="email"
@@ -108,13 +156,24 @@ function SeekerSignup() {
             />
             <label className="errorLabel">{emailError}</label>
           </div>
+          <div className='form-group'>
+            <input
+              type="text"
+              name="phone"
+              value={phone}
+              placeholder="+254742079321"
+              onChange={(ev) => setPhone(ev.target.value)}
+              className="inputBox"
+            />
+            <label className="errorLabel">{phoneError}</label>
+          </div>
           <div className="form-group">
             <input
               type={showPassword ? 'text' : 'password'}
               name="password"
               value={password}
               placeholder="Enter your password"
-              onChange={(ev) => setPassword(ev.target.value)}
+              onChange={handleChange}
               className="inputBox"
             />
             <label className="errorLabel">{passwordError}</label>
@@ -132,6 +191,7 @@ function SeekerSignup() {
               className="inputBox"
             />
             <label className="errorLabel">{passwordError}</label>
+            <label className='errorLabel'>{strength}</label>
             <span onClick={togglePasswordVisibility} className="togglePassword">
               {showPassword ? 'Hide' : 'Show'}
             </span>
@@ -146,6 +206,6 @@ function SeekerSignup() {
       </div>
     </div>
   )
-}
+};
 
-export default SeekerSignup
+export default SeekerSignup;
