@@ -19,12 +19,12 @@ function Book() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const quantity = 1
     // Prepare data for submission
     const dataToSubmit = {
       userId: localStorage.getItem('userId'),
       productId: localStorage.getItem('selectedProductId'),
-      quantity: formData.quantity,
+      quantity: quantity,
       location: formData.location,
     };
     console.log(dataToSubmit)
@@ -58,18 +58,6 @@ function Book() {
       <div className="book-container">
         <h2>Book Service</h2>
         <form onSubmit={handleSubmit} className="book-form">
-          
-          <div className="form-group">
-            <label htmlFor="quantity">Quantity:</label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              required
-            />
-          </div>
           <div className="form-group">
             <label htmlFor="location">Location:</label>
             <input
