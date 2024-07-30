@@ -1,7 +1,7 @@
 import React from 'react';
 import './Mainpage.css';
 import MyProduct from './MyProduct'; // Import the MyProduct component
-
+import MyOrders from './MyOrders'
 function Mainpage() {
   return (
     <div className="mainpage">
@@ -14,6 +14,7 @@ function Mainpage() {
         </div>
         {/* Insert MyProduct Component Here */}
         <MyProduct /> {/* This will render the product list below the existing content */}
+        <MyOrders />
       </div>
     </div>
   );

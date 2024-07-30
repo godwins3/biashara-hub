@@ -1,8 +1,7 @@
 'use client';
 import DashboardCard from './DashboardCard';
 import Loader from '../ui/Loader';
-import { useEffect, useState, useCallback } from 'react';
-import { toast } from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 import { dateFormat } from '../../utils/dateFormat';
 import './MyProduct.css'; // Make sure to import your CSS file
 
@@ -12,7 +11,7 @@ const MyProduct = () => {
     
     const removeProduct = async (productId) => {
         const token = localStorage.getItem('authToken');
-        await fetch('http://localhost:5000/api/merchant/deleteProduct/', {
+        await fetch('http://localhost:5000/api/merchant/deleteProduct', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -33,7 +32,7 @@ const MyProduct = () => {
                 },
             });
             const result = await response.json();
-            console.log(result)
+            
             setProducts(result);
         };
 
@@ -41,7 +40,6 @@ const MyProduct = () => {
         if (localStorage.getItem('authToken')) {
             // eslint-disable-next-line
                 getProducts();
-        
         }
         // eslint-disable-next-line
     }, []);
