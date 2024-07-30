@@ -21,6 +21,18 @@ const MyProduct = () => {
         });
         setProducts((prev) => prev.filter((list) => list._id !== productId));
     };
+    const updateProduct = async (productId) => {
+        const token = localStorage.getItem('authToken');
+        await fetch('http://localhost:5000/api/merchant/updateProduct', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `${token}`,
+            },
+            body: JSON.stringify({ productId }),
+        });
+        setProducts((prev) => prev.filter((list) => list._id !== productId));
+    };
     
     useEffect(() => {
         const getProducts = async () => {
@@ -55,6 +67,7 @@ const MyProduct = () => {
                         title={product.name}
                         date={dateFormat(product.createdAt)}
                         removeProducts={removeProduct()}
+                        updateProduct={updateProduct()}
                     />
                 ))
             ) : (

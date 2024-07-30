@@ -1,6 +1,6 @@
 import React from 'react';
 import './Mainpage.css';
-import MyProduct from './MyProduct'; // Import the MyProduct component
+import MyProduct from '.MyProduct'; // Import the MyProduct component
 import MyOrders from './MyOrders'
 function Mainpage() {
   return (
