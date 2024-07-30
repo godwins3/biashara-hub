@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoginNav from '../Dashboard/LoginNav';
 import './Book.css';
 
 function Book() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    date: '',
-    time: '',
-    contactNumber: '',
-    email: '',
-    city: '',
-    landmark: '',
-    state: '',
-    serviceType: '',
+    quantity: '',
+    location: '',
   });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -22,10 +17,39 @@ function Book() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // You can add your submission logic here
+
+    // Prepare data for submission
+    const dataToSubmit = {
+      userId: localStorage.getItem('userId'),
+      productId: localStorage.getItem('selectedProductId'),
+      quantity: formData.quantity,
+      location: formData.location,
+    };
+    console.log(dataToSubmit)
+    try {
+      const response = await fetch('http://localhost:5000/api/bookings/addBook', { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSubmit),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add book');
+      }
+
+      const result = await response.json();
+      console.log(result);
+
+      // Optionally, reset form or redirect user after successful submission
+      navigate('/');
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle the error (e.g., show a notification)
+    }
   };
 
   return (
@@ -34,94 +58,30 @@ function Book() {
       <div className="book-container">
         <h2>Book Service</h2>
         <form onSubmit={handleSubmit} className="book-form">
+          
           <div className="form-group">
-            <label htmlFor="date">Date:</label>
+            <label htmlFor="quantity">Quantity:</label>
             <input
-              type="date"
-              id="date"
-              name="date"
-              value={formData.date}
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={formData.quantity}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="time">Time:</label>
-            <input
-              type="time"
-              id="time"
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="contactNumber">Contact Number:</label>
+            <label htmlFor="location">Location:</label>
             <input
               type="text"
-              id="contactNumber"
-              name="contactNumber"
-              value={formData.contactNumber}
+              id="location"
+              name="location"
+              value={formData.location}
               onChange={handleChange}
               required
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email Address:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="city">City:</label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="landmark">Closest Landmark:</label>
-            <input
-              type="text"
-              id="landmark"
-              name="landmark"
-              value={formData.landmark}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="state">State:</label>
-            <input
-              type="text"
-              id="state"
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="serviceType">Type of Service:</label>
-            <input
-              type="text"
-              id="serviceType"
-              name="serviceType"
-              value={formData.serviceType}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="complete-button">Complete</button>
+          <button type="submit" className="complete-button">Add Book</button>
         </form>
       </div>
     </div>

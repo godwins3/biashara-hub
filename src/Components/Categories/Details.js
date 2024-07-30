@@ -14,12 +14,15 @@ function Details() {
   const [merchant, setMerchant] = useState([]);
   const [merchantProducts, setMerchantProducts] = useState([]);
   const [otherProducts, setOtherProducts] = useState([]);
-  const category = localStorage.getItem('currentCategory');
-
+  const [loading, setLoading] = useState(true);
+  const category = localStorage.getItem('category');
+  const providerID = localStorage.getItem('selectedMerchantID')
+  localStorage.setItem('providerID', providerID)
   const handleBookServiceClick = () => {
     navigate('/book');
   }
 
+  
   // Function to get the auth token
   const getAuthToken = () => {
     return localStorage.getItem('authToken'); // Modify based on how you store the token
@@ -27,12 +30,14 @@ function Details() {
   const fetchMerchantsDetails = async () => {
     try {
       const token = getAuthToken();
+      
       const response = await fetch('http://localhost:5000/api/client/getServiceProvider', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}` // Add the authorization header
-        }
+        },
+        body: JSON.stringify({ providerID }),
       });
 
       console.log(response);
@@ -40,6 +45,7 @@ function Details() {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      
       setMerchant(data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -50,11 +56,12 @@ function Details() {
     try {
       const token = getAuthToken();
       const response = await fetch('http://localhost:5000/api/client/getProviderProducts/?pageNumber=1&limit=3', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}` // Add the authorization header
-        }
+        },
+        body: JSON.stringify({ providerID }),
       });
 
       console.log(response);
@@ -62,6 +69,7 @@ function Details() {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      
       setMerchantProducts(data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -85,6 +93,7 @@ function Details() {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log(data)
       setOtherProducts(data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -92,15 +101,28 @@ function Details() {
     };
   }
 
-  const handleCategoryClick = () => {
-    navigate('/categories');
-  }
   useEffect(() => {
-    fetchMerchantsDetails();
-    fetchMerchantsProducts();
-    fetchOtherProducts();
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          fetchMerchantsDetails(),
+          fetchMerchantsProducts(),
+          fetchOtherProducts(),
+        ]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        toast.error('Failed to load data');
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     
       <div>
@@ -115,19 +137,19 @@ function Details() {
           <img src={serviceImage} alt='Service' className='service-image' />
         </div>
         <div className='column'>
-          <h3>{merchant.name}</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>{merchant.provider.name}</h3>
+          {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
           
           <div className='contact-info'>
-            <p><FontAwesomeIcon icon={faPhone} /> {merchant.phone}</p>
-            <p><FontAwesomeIcon icon={faEnvelope} /> {merchant.email}</p>
-            <p><FontAwesomeIcon icon={faMapMarkerAlt} /> {merchant.location}</p>
+            <p><FontAwesomeIcon icon={faPhone} /> {merchant.provider.phone}</p>
+            <p><FontAwesomeIcon icon={faEnvelope} /> {merchant.provider.email}</p>
+            <p><FontAwesomeIcon icon={faMapMarkerAlt} /> {merchant.provider.location}</p>
           </div>
         </div>
         <div className='column'>
           <div className='card'>
             <h3>Description</h3>
-            <p>{merchant.description}</p>
+            <p>{merchant.provider.description}</p>
             <button className='book-service' onClick={handleBookServiceClick}>Book Service</button>
           </div>
         </div>

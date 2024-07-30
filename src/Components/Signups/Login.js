@@ -50,6 +50,7 @@ function Login() {
         localStorage.setItem('username', data.name);
         localStorage.setItem('email', data.email);
         localStorage.setItem('role', data.role);
+        localStorage.setItem('userId', data._id)
         
         // Redirect to the homepage or dashboard
         navigate('/');

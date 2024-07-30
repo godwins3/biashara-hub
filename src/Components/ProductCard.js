@@ -9,18 +9,25 @@ const ProductCard = ({
     title, 
     src, 
     date, 
-    price 
+    price,
+    userId,
+    productId // Added productId prop
 }) => {
-    const [loader] = useState(false);
+    const [loader, setLoader] = useState(false);
 
     const navigate = useNavigate();
+
     const handler = () => {
-        navigate('/book');
+        setLoader(true);
+        localStorage.setItem('selectedProductId', productId); // Store product ID in local storage
+        localStorage.setItem('selectedMerchantID', userId) // store merchant ID in local storage
+        setTimeout(() => {
+            navigate('/details');
+        }, 1000); // Simulating a delay before navigation
     }
 
     return (
         <div className="product-card">
-            
             <div className="image-container">
                 <img src={src} alt={title} className="product-image" />
             </div>
@@ -40,7 +47,7 @@ const ProductCard = ({
                     <Button
                         variant="outline"
                         onClick={handler}
-                        title="Book"
+                        title="more details"
                     />
                 )}
             </div>

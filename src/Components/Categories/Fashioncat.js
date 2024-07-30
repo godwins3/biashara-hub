@@ -37,10 +37,12 @@ const Fashioncat = () => {
             toast.error('Failed to fetch products');
         }
     };
+    localStorage.setItem('category', category)
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         fetchProducts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category, pageNumber, limit]); // Correct dependency array
 
     return (
