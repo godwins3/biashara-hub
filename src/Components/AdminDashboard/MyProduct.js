@@ -66,8 +66,8 @@ const MyProduct = () => {
                         src={product.imageUrl}
                         title={product.name}
                         date={dateFormat(product.createdAt)}
-                        removeProducts={removeProduct()}
-                        updateProduct={updateProduct()}
+                        removeProducts={() => removeProduct(product._id)} // Pass a function that calls removeProduct
+                        updateProduct={() => updateProduct(product._id)}
                     />
                 ))
             ) : (

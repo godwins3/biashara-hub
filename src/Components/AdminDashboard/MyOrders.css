@@ -1,0 +1,59 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the orders */
+.orders-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Title styles */
+.orders-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* List styles */
+.orders-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.orders-list li {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.orders-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Product ID styling */
+.orders-list h3 {
+    margin: 0 0 5px;
+    color: #555;
+}
+
+/* Order details styling */
+.orders-list p {
+    margin: 0;
+    color: #666;
+}
+
+/* No orders message */
+.no-orders {
+    text-align: center;
+    color: #888;
+}

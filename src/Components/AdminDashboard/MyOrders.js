@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import './MyOrders.css'; // Import the CSS file
 
 const MyOrders = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const token = localStorage.getItem('authToken')
-    const userId = localStorage.getItem('userId')
+    const token = localStorage.getItem('authToken');
+    const email = localStorage.getItem('email');
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/bookings/getBooksByUserId?userId=${userId}`, {
-                    method: 'GET',
+                const response = await fetch(`http://localhost:5000/api/bookings/getBooksByEmail`, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `${token}`,
                     },
+                    body: JSON.stringify({ email }),
                 });
 
                 if (!response.ok) {
@@ -23,7 +25,7 @@ const MyOrders = () => {
                 }
 
                 const data = await response.json();
-                console.log(data)
+                console.log(data);
                 setOrders(data);
             } catch (err) {
                 setError(err.message || 'Error fetching orders');
@@ -34,7 +36,7 @@ const MyOrders = () => {
 
         fetchOrders();
         // eslint-disable-next-line
-    }, [userId]);
+    }, [email]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -45,19 +47,24 @@ const MyOrders = () => {
     }
 
     return (
-        <div>
+        <div className="orders-container">
             <h1>My Orders</h1>
             {orders.length > 0 ? (
-                <ul>
+                <ul className="orders-list">
                     {orders.map(order => (
                         <li key={order._id}>
                             <h3>Product ID: {order.productId}</h3>
-                            <p>Order Details: {JSON.stringify(order)}</p>
+                            <p><strong>Name:</strong> {order.userDetails.name}</p>
+                            <p><strong>Contact:</strong> {order.userDetails.phone}</p>
+                            <p><strong>Quantity:</strong> {order.quantity}</p>
+                            <p><strong>Location:</strong> {order.location}</p>
+                            <p><strong>Created At:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+                            <p><strong>Updated At:</strong> {new Date(order.updatedAt).toLocaleString()}</p>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p>No orders found.</p>
+                <p className="no-orders">No orders found.</p>
             )}
         </div>
     );
