@@ -7,7 +7,6 @@ import Mcategory from './Components/Categories/Mcategory';
 import Osignup from './Components/Signups/Osignup';
 import ProviderSignup from './Components/Signups/ProviderSignup';
 import SeekerSignup from './Components/Signups/SeekerSignup';
-import AdminSignup from './Components/Signups/AdminSignup'
 import Fashioncat from './Components/Categories/Fashioncat';
 import Foodcat from './Components/Categories/Foodcat';
 import Appliancecat from './Components/Categories/Appliancecat';
@@ -15,7 +14,6 @@ import Movingcat from './Components/Categories/Movingcat';
 import Help from './Components/Dashboard/Help';
 import Details from './Components/Categories/Details';
 import Book from './Components/Categories/Book';
-import Dashboard from './Components/Dashboard/Dashboard';
 import Userprof from './Components/Categories/Userprof';
 import Mainadmin from './Components/AdminDashboard/Mainadmin';
 import ProductForm from './Components/AdminDashboard/ProductForm';
@@ -37,7 +35,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/Psignup" element={<ProviderSignup />} />
           <Route path="/Ssignup" element={<SeekerSignup />} />
-          <Route path='/Asignup' element={<AdminSignup/>} />
           <Route element={<PrivateRoute />}>
             <Route path="/fashionmore" element={<Fashioncat />} />
             <Route path="/foodmore" element={<Foodcat />} />
@@ -48,13 +45,6 @@ function App() {
             <Route path="/book" element={<Book/>} />
             <Route path="/profile" element={<Userprof/>} />
             <Route path="/dashboard/addproduct" element={<ProductForm/>} />
-          </Route>
-          <Route path='/admintest' element={<Dashboard />} />
-          <Route
-            path="/admin"
-            element={<PrivateRoute allowedRoles={['admin']} />}
-          >
-            <Route path="" element={<Dashboard />} />
           </Route>
           <Route
             path="/dashboard"
