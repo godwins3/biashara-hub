@@ -7,8 +7,8 @@ import "./Home.css";
 import mission from "../Assests/Ms2.png";
 import appwork from "../Assests/Appwork.png";
 import testimonial from "../Assests/Testimonial.png"
-import testimonial1 from "../Assests/Testimonial.png"
-import testimonial2 from "../Assests/Testimonial.png"
+import testimonial1 from "../Assests/testimonial1.jpg"
+import testimonial2 from "../Assests/testimonials2.jpg"
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
 import CategoriesCarousel from './CategoryCarousel';
@@ -96,29 +96,6 @@ function Home() {
       </div>
     </div>
     <CategoriesCarousel />
-    {/* change to carousel */}
-    {/* <div className="categories-section">
-      <h2 className="categories-heading">Categories</h2>
-      <div className="categories-list">
-        <div className="category-item">
-          <img src={fashionImage} alt="Fashion Category" className="category-img" />
-          <p className="category-name">Fashion</p>
-        </div>
-        <div className="category-item">
-          <img src={artisansImage} alt="Artisans Category" className="category-img" />
-          <p className="category-name">Artisans</p>
-        </div>
-        <div className="category-item">
-          <img src={foodImage} alt="Food Category" className="category-img" />
-          <p className="category-name">Food</p>
-        </div>
-        <div className="category-item">
-          <img src={cleaningImage} alt="Cleaning Category" className="category-img" />
-          <p className="category-name">Appliance</p>
-        </div>
-      </div>
-    </div>
- */}
 
     <div className="testimonials-section">
       <h2 className="testimonials-heading">Testimonials</h2>

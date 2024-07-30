@@ -238,6 +238,7 @@
 
 .testimonial-img {
   max-width: 100%;
+  max-height: 200px;
   height: auto;
   border-radius: 50%; /* Round image for a circular shape */
   margin-bottom: 10px;
